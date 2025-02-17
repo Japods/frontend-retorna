@@ -1,0 +1,232 @@
+/* Importar la fuente Josefin Sans desde Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+@layer theme, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Variables de colores para el tema claro */
+:root {
+  /* Colores primarios */
+  --bright-blue: hsl(220, 98%, 61%);
+  --check-background: linear-gradient(
+    to right,
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+
+  /* Colores neutrales para el tema claro */
+  --very-light-gray: hsl(0, 0%, 98%);
+  --very-light-grayish-blue: hsl(236, 33%, 92%);
+  --light-grayish-blue: hsl(233, 11%, 84%);
+  --dark-grayish-blue: hsl(236, 9%, 61%);
+  --very-dark-grayish-blue: hsl(235, 19%, 35%);
+  --very-dark-desaturated-blue: hsl(0, 0%, 98%);
+}
+
+/* Variables de colores para el tema oscuro */
+[data-theme="dark"] {
+  /* Colores neutrales para el tema oscuro */
+  --very-dark-blue: hsl(235, 21%, 11%);
+  --very-dark-desaturated-blue: hsl(235, 24%, 19%);
+  --light-grayish-blue: hsl(234, 39%, 85%);
+  --light-grayish-blue-hover: hsl(236, 33%, 92%);
+  --dark-grayish-blue: hsl(234, 11%, 52%);
+  --very-dark-grayish-blue: hsl(233, 14%, 35%);
+  --very-dark-grayish-blue-2: hsl(237, 14%, 26%);
+}
+
+/* Estilos generales */
+body {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  background-color: var(--very-light-grayish-blue);
+  color: var(--very-dark-grayish-blue);
+  transition: background-color 0.3s, color 0.3s;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.dark-theme {
+  background-image: url("/src/assets/bg-desktop-dark.jpg");
+  height: 200px;
+}
+
+.light-theme {
+  background-image: url("/src/assets/bg-desktop-light.jpg");
+  height: 280px;
+}
+/* Contenedor principal */
+.container {
+  width: 40%;
+  max-width: 600px;
+  min-width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .container {
+    width: 80%;
+    margin: 30px auto;
+    padding: 15px;
+  }
+
+  .dark-theme {
+    background-image: url("/src/assets/bg-mobile-dark.jpg");
+    height: 300px;
+  }
+
+  .light-theme {
+    background-image: url("/src/assets/bg-mobile-light.jpg");
+  }
+
+  h4 {
+    font-size: 14px !important;
+  }
+
+  p {
+    font-size: 12px !important;
+  }
+
+  input {
+    font-size: 12px !important;
+  }
+
+  /* Estilos para el placeholder */
+  input::placeholder {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 10px;
+  }
+}
+
+/* Estilos para el tema oscuro */
+body[data-theme="dark"] {
+  background-color: var(--very-dark-blue);
+  color: var(--light-grayish-blue);
+}
+
+/* Estilos para títulos */
+h1,
+h2,
+h3,
+h4 {
+  color: var(--very-light-gray);
+}
+
+/* Estilos para títulos */
+h4 {
+  color: var(--very-dark-grayish-blue);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Tareas completadas en light mode */
+h4.completed {
+  color: var(--dark-grayish-blue);
+}
+
+.task-container h4 {
+  font-size: 18px;
+}
+
+/* Tareas completadas en dark mode */
+body[data-theme="dark"] h4.completed {
+  color: var(--light-grayish-blue);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para inputs */
+input {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 18px !important;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid var(--light-grayish-blue);
+  border-radius: 5px;
+  background-color: var(--very-light-gray);
+  color: var(--very-dark-grayish-blue); /* Color del texto ingresado */
+  font-weight: 400;
+}
+
+/* Estilos para el placeholder */
+input::placeholder {
+  color: var(--very-dark-grayish-blue); /* Mismo color que el texto ingresado */
+  font-size: 18px !important;
+  font-weight: 400;
+  opacity: 1; /* Asegura que el color se vea bien en algunos navegadores */
+}
+
+/* Estilos para inputs en tema oscuro */
+body[data-theme="dark"] input {
+  background-color: var(--very-dark-desaturated-blue);
+  border-color: var(--dark-grayish-blue);
+  color: var(--light-grayish-blue);
+}
+
+/* Estilos para listas */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  background-color: var(--very-light-gray);
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+h4 {
+  color: var(--very-dark-grayish-blue); /* Color del texto ingresado */
+}
+
+[data-theme="dark"] h4 {
+  color: var(--very-light-gray) !important;
+}
+
+[data-theme="dark"] .completed {
+  color: var(--very-light-gray) !important;
+}
+
+/* Estilos para listas en tema oscuro */
+body[data-theme="dark"] li {
+  background-color: var(--very-dark-desaturated-blue);
+  color: var(--light-grayish-blue);
+}
+
+.card-dinamic {
+  background-color: var(--very-dark-desaturated-blue);
+  color: var(--light-grayish-blue);
+}
+
+.item-task-border {
+  border-bottom: 1px solid var(--dark-grayish-blue);
+}
+
+/* Filtro inactivo */
+.filter {
+  color: var(--dark-grayish-blue);
+  transition: color 0.3s, font-weight 0.3s;
+}
+
+/* Filtro activo */
+.filter.active {
+  color: var(--bright-blue);
+  font-weight: bold;
+}
+
+.completed-task {
+  color: var(--dark-grayish-blue);
+}

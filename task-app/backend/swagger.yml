@@ -1,0 +1,226 @@
+openapi: 3.0.0
+info:
+  title: Task API
+  description: API para gestionar tareas
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+paths:
+  /tasks:
+    get:
+      summary: Obtener todas las tareas
+      description: Retorna una lista de todas las tareas.
+      responses:
+        '200':
+          description: Lista de tareas obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '500':
+          description: Error al obtener las tareas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error getting tasks"
+    post:
+      summary: Crear una nueva tarea
+      description: Crea una nueva tarea con el título y el estado proporcionados.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Título de la tarea
+                  example: "Hacer la compra"
+                status:
+                  type: string
+                  description: Estado de la tarea (active, completed)
+                  example: "active"
+      responses:
+        '201':
+          description: Tarea creada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: JSON inválido o campos faltantes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid JSON or missing fields"
+  /tasks/{id}:
+    get:
+      summary: Obtener una tarea por ID
+      description: Retorna una tarea específica basada en su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tarea
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tarea obtenida correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Tarea no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Task not found"
+        '500':
+          description: Error al obtener la tarea
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error getting task"
+    put:
+      summary: Actualizar una tarea
+      description: Actualiza una tarea existente con los campos proporcionados.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tarea
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Nuevo título de la tarea
+                  example: "Hacer la compra urgente"
+                status:
+                  type: string
+                  description: Estado de la tarea (active, completed)
+                  example: "completed"
+                order:
+                  type: integer
+                  description: Posición de la tarea en la lista
+                  example: 2
+      responses:
+        '200':
+          description: Tarea actualizada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Tarea no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Task not found"
+        '400':
+          description: JSON inválido o campos de actualización incorrectos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid JSON or update fields"
+    delete:
+      summary: Eliminar una tarea
+      description: Elimina una tarea específica basada en su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tarea
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Tarea eliminada correctamente
+        '404':
+          description: Tarea no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Task not found"
+        '500':
+          description: Error al eliminar la tarea
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error deleting task"
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID de la tarea
+          example: "67b260445af334f1240f3403"
+        title:
+          type: string
+          description: Título de la tarea
+          example: "Complete Online JavaScript Course"
+        status:
+          type: string
+          description: Estado de la tarea (active, completed)
+          example: "completed"
+        order:
+          type: integer
+          description: Posición de la tarea en la lista
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          description: Fecha de creación de la tarea
+          example: "2025-02-16T22:01:40.505Z"
+      required:
+        - id
+        - title
+        - status
+        - order
+        - createdAt
